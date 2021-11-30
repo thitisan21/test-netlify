@@ -5,7 +5,7 @@ const app = express()
 const router = require("./routes/routeIndex")
 
 // app.use(express.json({ limit: "50mb" }))
-app.use("/", router)
+// app.use("/", router)
 
 app.get("/test", (req, res) => {
     res.send("test");
@@ -20,4 +20,7 @@ var port = process.env.EXPRESS_PORT || 3000;
 // app.listen(port, () => {
 //     console.log("application is listening on:", port);
 //  });
+app.use('/.netlify/functions/server', router);  // path must route to lambda (express/server.js)
+
+module.exports = app;
 module.exports.handler = serverless(app);
